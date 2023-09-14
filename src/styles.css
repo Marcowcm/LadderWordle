@@ -1,0 +1,47 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 3px;
+  border: darkgray 1px solid;
+  border-radius: 3px;
+  display: inline-flex;
+}
+.grid {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.absent {
+  background-color: darkgray;
+  color: white;
+  align-items: center;
+}
+.correct {
+  background-color: green;
+  color: white;
+}
+.present {
+  background-color: rgb(255, 196, 1);
+  color: white;
+}
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (min-width: 600px) {
+}
