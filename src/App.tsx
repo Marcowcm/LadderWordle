@@ -3,10 +3,11 @@ import { useState, useEffect, useCallback } from "react";
 import { Grid } from "./components/grid/Grid";
 import { getNewWord } from "./components/gameLogics";
 import { Keyboard } from "./components/keyboard/Keyboard";
+import { Modal } from "./components/Modal";
 
 export default function App() {
   const [level, setLevel] = useState(1);
-  const [maxTries] = useState(5);
+
   const [solution, setSolution] = useState(getNewWord(level));
 
   const [guesses, setGuesses] = useState([]);
@@ -15,14 +16,18 @@ export default function App() {
   const [currentRowClass, setCurrentRowClass] = useState("false");
   const [isWon, setIsWon] = useState(false);
   const [isLost, setIsLost] = useState(false);
+  const modalMessage = "Lorem";
 
   const onChar = useCallback(
     (value: string) => {
-      if (solution.length > currentGuess.length && guesses.length < maxTries) {
+      if (
+        solution.length > currentGuess.length &&
+        guesses.length < solution.length
+      ) {
         setCurrentGuess(`${currentGuess}${value}`);
       }
     },
-    [guesses, currentGuess, maxTries]
+    [guesses, currentGuess, solution],
   );
   const onDelete = useCallback(() => {
     if (currentGuess.length > 0) {
@@ -34,26 +39,44 @@ export default function App() {
       return;
     }
     if (currentGuess.length === solution.length) {
-      /*guess is complete
-       if(WordList.include(currentGuess)){ //guess is an accepted word*/
+      /* guess is complete
+       if(WordList.include(currentGuess)){ //guess is an accepted word */
       if (currentGuess === solution) {
-        /*win*/
+        /* win */
         setIsWon(true);
         setIsRevealing(true);
-        /*animation*/
-        setLevel(level + 1);
-        getNewWord(level);
-      } else if (guesses.length < maxTries) {
-        /*WRONG, next guess*/
+        /* animation */
+        nextLevel();
+      } else if (guesses.length < solution.length) {
+        /* WRONG, next guess */
         setGuesses(guesses.concat(currentGuess));
         setCurrentGuess("");
       } else {
-        /* wrong on Last chance*/
+        /* wrong on Last chance */
         setIsLost(true);
       }
     }
-  }, [guesses, currentGuess, isLost, isWon, maxTries]);
+  }, [guesses, currentGuess, isLost, isWon, solution]);
 
+  const newGame = useCallback(() => {
+    setLevel(1);
+    setSolution(getNewWord(1));
+    setGuesses([]);
+    setCurrentGuess("");
+    setCurrentRowClass("false");
+    setIsWon(false);
+    setIsLost(false);
+  }, []);
+  const nextLevel = useCallback(() => {
+    setSolution(getNewWord(level + 1));
+    setLevel(level + 1);
+    setGuesses([]);
+    setCurrentGuess("");
+    setCurrentRowClass("false");
+    setIsWon(false);
+    setIsLost(false);
+  }, [level, solution]);
+  /* keyListener */
   useEffect(() => {
     const listener = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
@@ -75,7 +98,7 @@ export default function App() {
     <div className="App">
       <h1>Wordle</h1>
       <Grid
-        maxTries={maxTries}
+        maxTries={solution.length}
         solution={solution}
         guesses={guesses}
         currentGuess={currentGuess}
@@ -83,6 +106,10 @@ export default function App() {
         currentRowClassName={currentRowClass}
       />
       <Keyboard onChar={onChar} onEnter={onEnter} onDelete={onDelete} />
+      <button onClick={newGame}>Reset</button>
+      <button onClick={nextLevel}>Next Level</button>
+      <p>Level: {level}</p>
+      <Modal isOpen={isWon} message={modalMessage} onClick={newGame} />
     </div>
   );
 }

@@ -17,7 +17,7 @@ export const Keyboard = ({ onChar, onEnter, onDelete }: Props) => {
     }
   };
   return (
-    <div>
+    <div className="keyboard">
       <p>Keyboard</p>
       <div className="row">
         {"QWERTYUIOP".split("").map((letter) => (

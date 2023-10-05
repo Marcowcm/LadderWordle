@@ -15,7 +15,7 @@ export const getStatus = (solution, guess) => {
   guess.split("").map((letter, i) => {
     if (status[i] === "correct" || status[i] === "absent") {
     } else if (solution.includes(letter)) {
-      //just in case
+      // just in case
       if (ref.includes(letter)) {
         ref[ref.indexOf(letter)] = "-1";
         status[i] = "present";
@@ -30,7 +30,7 @@ export const getStatus = (solution, guess) => {
 
 export const letterState = [];
 
-export const getNewWord = (level) => {
+export const getNewWord = (level: number) => {
   const dict = words[level - 1];
   return dict[Math.floor(Math.random() * dict.length)].toUpperCase();
 };

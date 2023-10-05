@@ -9078,8 +9078,8 @@ export const words = [
     "larch",
     "kongo",
     "scrap",
-    "final"
+    "final",
   ],
-  ,
-  ["apical"]
+  ["apical"],
+  ["general", "setting"],
 ];
