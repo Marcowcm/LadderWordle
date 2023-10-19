@@ -17,7 +17,7 @@ export const Grid = ({
   guesses,
   currentGuess,
   isRevealing,
-  currentRowClassName
+  currentRowClassName,
 }: Props) => {
   const empties =
     guesses.length < maxTries - 1
@@ -36,9 +36,13 @@ export const Grid = ({
         {empties.map((_, i) => (
           <EmptyRow solution={solution} key={i} />
         ))}
-        <div>Guesses:{guesses}</div>
+        <div>
+          Guesses:{guesses} | length:{guesses.length}{" "}
+        </div>
         <div>Current Guess:{currentGuess}</div>
-        <div>Answer: {solution}</div>
+        <div>
+          Answer: {solution} | {solution.length}
+        </div>
         <div></div>
       </div>
     </>

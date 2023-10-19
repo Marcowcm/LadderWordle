@@ -21,18 +21,18 @@ export const Keyboard = ({ onChar, onEnter, onDelete }: Props) => {
       <p>Keyboard</p>
       <div className="row">
         {"QWERTYUIOP".split("").map((letter) => (
-          <Key value={letter} onClick={onClick} status={letterState[letter]} />
+          <Key value={letter} onClick={onClick} status={letterState(letter)} />
         ))}
       </div>
       <div className="row">
         {"ASDFGHJKL".split("").map((letter) => (
-          <Key value={letter} onClick={onClick} status={letterState[letter]} />
+          <Key value={letter} onClick={onClick} status={letterState(letter)} />
         ))}
         <Key value="ENTER" onClick={onClick} status="default" />
       </div>
       <div className="row">
         {"ZXCVBNM".split("").map((letter) => (
-          <Key value={letter} onClick={onClick} status={letterState[letter]} />
+          <Key value={letter} onClick={onClick} status={letterState(letter)} />
         ))}
         <Key value="<--" onClick={onClick} status="default" />
       </div>
